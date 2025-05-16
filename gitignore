@@ -1,0 +1,23 @@
+# Entorno virtual
+myenv/
+env/
+
+# Archivos temporales de Python
+*.pyc
+__pycache__/
+
+# Base de datos local
+db.sqlite3
+
+# Archivos de medios (cargados por usuarios)
+media/
+
+# Archivos y carpetas del sistema
+.DS_Store
+
+# Configuración local
+.vscode/
+*.log
+
+# Django static files (si se recolectan)
+staticfiles/
