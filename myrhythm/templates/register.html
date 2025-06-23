@@ -4,11 +4,30 @@
     <title>Registro</title>
 </head>
 <body>
-    <h2>Registro</h2>
+    <h2>Registro de Cliente</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <label>Nombre completo:</label>
+        <input type="text" name="nombre" required><br>
+
+        <label>RUT:</label>
+        <input type="text" name="rut" required><br>
+
+        <label>Correo electrónico:</label>
+        <input type="email" name="email" required><br>
+
+        <label>Dirección:</label>
+        <input type="text" name="direccion" required><br>
+
+        <label>Teléfono:</label>
+        <input type="text" name="telefono" required><br>
+
+        <label>Contraseña:</label>
+        <input type="password" name="password" required><br><br>
+
         <button type="submit">Registrarse</button>
     </form>
 </body>
 </html>
+

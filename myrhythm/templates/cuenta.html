@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mi Cuenta{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="background-image: url('{% static 'images/slide-1.jpg' %}'); background-size: cover; background-position: center; min-height: 100vh;">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 d-flex flex-column align-items-center py-4" style="background-color: rgba(255, 255, 255, 0.8); min-height: 100vh;">
+            <img src="{% static 'images/logo1.png' %}" class="img-fluid mb-4" alt="Logo" style="max-width: 100px;">
+            <a href="#" class="btn btn-primary w-100 mb-3">Mis Pedidos</a>
+            <a href="#" class="btn btn-primary w-100 mb-3">Historial de Pedidos</a>
+            <a href="#" class="btn btn-primary w-100 mb-3">Mi Cuenta</a>
+            <a href="#" class="btn btn-primary w-100">Solicitar Soporte</a>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-10 p-5">
+            <div class="bg-white p-4 rounded shadow mb-4">
+                <h4 class="bg-primary text-white p-2 rounded">Mis Pedidos</h4>
+                <p><strong>Nombre</strong></p>
+                <p>Fecha</p>
+                <p>Estado: <em>Pendiente, En Proceso, Finalizado</em></p>
+                <button class="btn btn-outline-primary">Ver Detalles</button>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow">
+                <h4 class="bg-primary text-white p-2 rounded">Contacto</h4>
+                <p>Contacto de Soporte</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

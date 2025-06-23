@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Formulario de Producto{% endblock %}
+
+{% block content %}
+<style>
+  .layout {
+    display: flex;
+    margin-top: 70px;
+    min-height: calc(100vh - 70px);
+  }
+  .sidebar {
+    width: 220px;
+    background-color: #0d3b66;
+    padding-top: 20px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .sidebar img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100px;
+  }
+  .sidebar a, .sidebar button {
+    display: block;
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    text-align: left;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-decoration: none;
+  }
+  .sidebar a:hover, .sidebar button:hover {
+    background-color: #005999;
+  }
+  .main {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  .form-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    max-width: 600px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+</style>
+
+<div class="layout">
+  <div class="sidebar">
+    <img src="{% static 'images/logo1.png' %}" alt="Logo">
+    <a href="{% url 'productos_admin' %}">Productos / Servicios</a>
+    <button>Configuración</button>
+    <button>Bandeja de entrada</button>
+  </div>
+
+  <div class="main">
+    <div class="form-section">
+      <h2>{{ accion }} Producto</h2>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="background-color: #0d3b66; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+          Guardar
+        </button>
+        <a href="{% url 'productos_admin' %}" style="margin-left: 10px; padding: 10px 20px; background-color: #aaa; color: white; text-decoration: none; border-radius: 5px;">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

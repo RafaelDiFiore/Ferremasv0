@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Panel Administrador - Gestión de Productos{% endblock %}
+
+{% block content %}
+<style>
+  .layout {
+    display: flex;
+    margin-top: 70px; /* ajusta según la altura de tu navbar */
+    min-height: calc(100vh - 70px);
+  }
+  .sidebar {
+    width: 220px;
+    background-color: #0d3b66;
+    padding-top: 20px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .sidebar img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100px;
+  }
+  .sidebar a {
+    text-decoration: none;
+  }
+  .sidebar button {
+    display: block;
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  .sidebar button:hover {
+    background-color: #005999;
+  }
+  .main {
+    flex-grow: 1;
+    padding: 20px;
+  }
+</style>
+
+<div class="layout">
+  <div class="sidebar">
+    <img src="{% static 'images/logo1.png' %}" alt="Logo">
+    <a href="{% url 'administrador' %}"><button>Gestión de Usuarios</button></a>
+    <a href="{% url 'productos_admin' %}"><button>Productos / Servicios</button></a>
+    <button>Pedidos Solicitudes</button>
+    <button>Reportes</button>
+    <button>Configuración</button>
+    <button>Bandeja de entrada</button>
+  </div>
+
+  <div class="main">
+    <h2 style="background-color: #0d3b66; color: white; padding: 10px; border-radius: 5px;">Productos / Servicios</h2>
+
+    <div class="top-bar" style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
+      <h3 style="margin: 0;">Listado de Productos</h3>
+        <a href="{% url 'producto_nuevo' %}" class="btn btn-success">Nuevo</a>    </div>
+
+    <table style="width: 100%; border-collapse: collapse; background-color: white; margin-top: 10px;">
+      <thead>
+        <tr>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">ID</th>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">Nombre</th>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">Precio</th>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">Categoría</th>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">Descripción</th>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">Imagen</th>
+          <th style="background-color: #f39c12; color: white; padding: 12px;">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+        <tr>
+          <td style="padding: 12px; text-align: center;">{{ producto.id }}</td>
+          <td style="padding: 12px;">{{ producto.name }}</td>
+          <td style="padding: 12px;">${{ producto.price }}</td>
+          <td style="padding: 12px;">{{ producto.categoria }}</td>
+          <td style="padding: 12px;">{{ producto.description|truncatewords:10 }}</td>
+          <td style="padding: 12px; text-align: center;">
+            {% if producto.image %}
+              <img src="{{ producto.image.url }}" alt="{{ producto.name }}" width="60">
+            {% else %}
+              Sin imagen
+            {% endif %}
+          </td>
+          <td style="padding: 12px; text-align: center;">
+            <a href="{% url 'producto_editar' producto.id %}" class="btn btn-primary btn-sm">Editar</a>
+            <a href="{% url 'producto_eliminar' producto.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" style="text-align: center; padding: 20px;">No hay productos registrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

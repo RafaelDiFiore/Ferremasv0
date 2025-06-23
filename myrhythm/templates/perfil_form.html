@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Formulario Perfil{% endblock %}
+
+{% block content %}
+<style>
+  .layout {
+    display: flex;
+    margin-top: 70px;
+    min-height: calc(100vh - 70px);
+  }
+  .sidebar {
+    width: 220px;
+    background-color: #0d3b66;
+    padding-top: 20px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .sidebar img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100px;
+  }
+  .sidebar a {
+    text-decoration: none;
+  }
+  .sidebar button {
+    display: block;
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  .sidebar button:hover {
+    background-color: #005999;
+  }
+  .main {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+</style>
+
+<div class="layout">
+  <div class="sidebar">
+    <img src="{% static 'images/logo1.png' %}" alt="Logo">
+    <a href="{% url 'administrador' %}" style="display:block; background-color:#003366; color:white; padding:15px 10px; font-size:16px; border-radius:5px; margin-bottom:5px;">Gestión de Usuarios</a>
+    <a href="{% url 'productos_admin' %}" style="display:block; background-color:#003366; color:white; padding:15px 10px; font-size:16px; border-radius:5px; margin-bottom:5px;">Productos / Servicios</a>
+    <button>Pedidos Solicitudes</button>
+    <button>Reportes</button>
+    <button>Configuración</button>
+    <button>Bandeja de entrada</button>
+  </div>
+
+  <div class="main">
+    <h2 style="background-color: #0d3b66; color: white; padding: 10px; border-radius: 5px;">
+      {% if nombre %}Editar Perfil{% else %}Crear Perfil{% endif %}
+    </h2>
+    <form method="POST" style="background-color: white; padding: 20px; border-radius: 10px; max-width: 600px;">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input type="text" name="nombre" id="nombre" value="{{ nombre|default:'' }}" required>
+      </div>
+      <div class="form-group">
+        <label for="correo" class="form-label">Correo Electrónico</label>
+        <input type="email" name="correo" id="correo" value="{{ correo|default:'' }}" required>
+      </div>
+      <div class="form-group">
+        <label for="tipo" class="form-label">Tipo de Usuario</label>
+        <select name="tipo" id="tipo" required>
+          <option value="">Seleccione</option>
+          <option value="administrador" {% if tipo == 'administrador' %}selected{% endif %}>Administrador</option>
+          <option value="contador" {% if tipo == 'contador' %}selected{% endif %}>Contador</option>
+          <option value="bodeguero" {% if tipo == 'bodeguero' %}selected{% endif %}>Bodeguero</option>
+          <option value="vendedor" {% if tipo == 'vendedor' %}selected{% endif %}>Vendedor</option>
+          <option value="cliente" {% if tipo == 'cliente' %}selected{% endif %}>Cliente</option>
+        </select>
+      </div>
+      <button type="submit" style="padding: 10px 20px; background-color: #0d3b66; color: white; border: none; border-radius: 5px;">Guardar</button>
+      <a href="{% url 'administrador' %}" style="margin-left: 10px; padding: 10px 20px; background-color: #aaa; color: white; text-decoration: none; border-radius: 5px;">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
